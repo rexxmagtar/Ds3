@@ -1,0 +1,81 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using System.Globalization
+@model Lab3Register.Models.HomeModel
+
+<head>
+    <style>
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) { background-color: #f2f2f2; }
+
+        #customers tr:hover { background-color: #ddd; }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+
+<form asp-controller="Home" method="post">
+    <table id="customers">
+        <tr>
+            <th>Service</th>
+            @{
+                int number = 1;
+                try
+                {
+                    number = Model.methods.Max(sel => sel.Value.Count);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
+                number++;
+
+                <th colspan="@number">Methods</th>
+            }
+        </tr>
+
+        @for (int i = 0; i < Model.methods.Count; i++)
+        {
+            <tr>
+                <td>
+                    <label asp-for="@Model.methods[i].Key">@Model.methods[i].Key</label>
+                    <button type="submit" name="serviceName" asp-action="RemoveService" value="@Model.methods[i].Key">-</button>
+                </td>
+                @{
+
+                    for (int j = 0; j < Model.methods[i].Value.Count; j++)
+                    {
+                        <td>
+                            <label asp-for="@Model.methods[i].Value[j]" value="@Model.methods[i].Value[j]">@Model.methods[i].Value[j]</label>
+                            <button type="submit" name="serviceIndex" asp-action="RemoveServiceMethod" asp-route-methodName="@Model.methods[i].Value[j]">-</button>
+                        </td>
+
+                    }
+                    <td>
+                        <input type="text" name="@Model.methods[i].Key NewMethod" value="@Model.methods[i].Key NewMethod"/>
+                        <button type="submit" name="serviceName" asp-action="AddServiceMethod"   value="@Model.methods[i].Key">Add method</button>
+                    </td>
+
+                }
+            </tr>
+        }
+    </table>
+
+    <input type="text" name="newServiceName" value="new service name"/>
+    <button asp-action="AddService">Add service</button>
+</form>
