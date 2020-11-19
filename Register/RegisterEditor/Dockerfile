@@ -1,0 +1,22 @@
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
+WORKDIR /app
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+WORKDIR /src/RegisterEditor
+COPY ./* ./
+
+RUN dotnet restore
+WORKDIR /src/RegisterEditor
+
+
+RUN dotnet build -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+RUN ls
+ENTRYPOINT ["dotnet", "RegisterEditor.dll"]

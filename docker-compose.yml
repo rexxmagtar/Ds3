@@ -1,0 +1,20 @@
+version: '3.5'
+services:
+  register:
+    container_name: register-main
+    build: ./Register/RegisterMain
+    ports:
+      - "8280:80"
+    networks:
+      - proxynet
+  registereditor:
+    container_name: register-editor
+    build: ./Register/RegisterEditor
+    ports:
+      - "8281:80"
+    networks:
+      - proxynet
+
+networks:
+  proxynet:
+    name: custom_network
