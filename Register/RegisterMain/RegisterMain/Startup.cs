@@ -10,10 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using SOPSLab3Service.Models;
+using RegisterMain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace SOPSLab3Service
+namespace RegisterMain
 {
     public class Startup
     {

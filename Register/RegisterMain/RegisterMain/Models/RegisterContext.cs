@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace SOPSLab3Service.Models
+namespace RegisterMain.Models
 {
     public class RegisterContext: DbContext
     {

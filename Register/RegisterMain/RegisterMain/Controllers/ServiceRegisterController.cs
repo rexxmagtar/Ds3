@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SOPSLab3Service.Models;
+using RegisterMain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace SOPSLab3Service.Controllers
+namespace RegisterMain.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -29,6 +29,7 @@ namespace SOPSLab3Service.Controllers
             Service service = await context.Services.FindAsync(serviceName);
             if (service == null)
                 return NoContent();
+            await context.Entry(service).Navigation("AvailableMethods").LoadAsync();
 
             return service.AvailableMethods
                           .Select(method => (object)new
