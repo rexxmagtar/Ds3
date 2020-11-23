@@ -1,5 +1,15 @@
 version: '3.5'
 services:
+  payment:
+    container_name: payment
+    build: ./Payment
+    ports:
+      - "8282:80"
+    depends_on:
+      - register
+      - registereditor
+    networks:
+      - proxynet
   register:
     container_name: register-main
     build: ./Register/RegisterMain

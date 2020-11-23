@@ -36,8 +36,7 @@ namespace PaymentService.Controllers
 				var registerRequest = new HttpRequestMessage(HttpMethod.Get, $"{_registerApiURL}/getMethods/{service}");
 
 				var registerReply = await _client.SendAsync(registerRequest);
-
-				if (!registerReply.IsSuccessStatusCode)
+				Console.WriteLine($"{_registerApiURL}/getMethods/{service}");
 				{
 					throw new Exception("Wrong service");
 				}
